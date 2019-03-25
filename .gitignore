@@ -38,4 +38,6 @@ msbuild.wrn
 
 # Please.Build
 plz-out/
+pleasew
+.plzconfig
 

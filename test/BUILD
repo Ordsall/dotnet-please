@@ -1,4 +1,4 @@
-subinclude('//dotnet')
+subinclude('//build_defs:dotnet')
 
 dotnet_binary(
    name = 'Test',

@@ -1,4 +1,4 @@
-# Build rules for Rust rules.
+# Build rules for dotnet rules.
 
 export_file(
     name = 'dotnet',
