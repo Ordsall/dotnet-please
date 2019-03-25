@@ -1,4 +1,4 @@
-def dotnet_binary(name, csproj, deps=None, visibility=None):
+def dotnet_binary(csproj, deps=None, visibility=None):
     """Defines a build rule for a dotnet standalone binary.
 
     Args:
@@ -7,16 +7,20 @@ def dotnet_binary(name, csproj, deps=None, visibility=None):
       deps: Dependencies of this rule needed for it to compile.
       visibility: Visibility declaration.
     """
-    cmd = f'dotnet build {csproj}'
-
+    #setDefault(&config.Build.PassEnv, []string{})
+    cmd = f'export BKTMP_DIR=$TMP_DIR && export BKTMPDIR=$TMPDIR && export TMP_DIR=/tmp && export TMPDIR=/tmp && dotnet build --no-dependencies --output "./" {csproj} && export TMP_DIR=$BKTMP_DIR && export TMPDIR=$TMPDIR'
+    
     build_rule(
-        name = name,
-        srcs = [csproj],
+        name = splitext(basename(csproj))[0],
+        srcs = glob([csproj,dirname(csproj) + '/*.cs']),
         binary = True,
-        outs = [name],
+        outs = [dirname(csproj) + '/' + splitext(basename(csproj))[0] + '.dll'],
         cmd = cmd,
+        building_description="Building...",
         deps = deps,
         visibility = visibility,
         requires = ['dotnet'],
     )
+
+
 

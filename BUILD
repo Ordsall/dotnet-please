@@ -1,4 +1,4 @@
-# Build rules for dotnet rules.
+package(default_visibility = ['PUBLIC'])
 
 export_file(
     name = 'dotnet',
