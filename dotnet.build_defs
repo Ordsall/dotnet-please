@@ -1,0 +1,22 @@
+def dotnet_binary(name, csproj, deps=None, visibility=None):
+    """Defines a build rule for a dotnet standalone binary.
+
+    Args:
+      name: Name of the rule.
+      csproj: Source files containing the main() function.
+      deps: Dependencies of this rule needed for it to compile.
+      visibility: Visibility declaration.
+    """
+    cmd = f'dotnet build {csproj}'
+
+    build_rule(
+        name = name,
+        srcs = [csproj],
+        binary = True,
+        outs = [name],
+        cmd = cmd,
+        deps = deps,
+        visibility = visibility,
+        requires = ['dotnet'],
+    )
+
